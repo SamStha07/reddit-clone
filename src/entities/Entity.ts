@@ -4,7 +4,6 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import bcrypt from 'bcrypt';
 import { classToPlain, Exclude } from 'class-transformer';
 
 export default abstract class Entity extends BaseEntity {

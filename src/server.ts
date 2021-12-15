@@ -5,6 +5,7 @@ import morgan from 'morgan';
 import authRoutes from './routes/auth';
 import postRoutes from './routes/posts';
 import subRoutes from './routes/subs';
+import commentRoutes from './routes/comments';
 import trim from './middleware/trim';
 import env from 'dotenv';
 import cookieParser from 'cookie-parser';
@@ -22,9 +23,10 @@ app.get('/', (_, res) => res.send('Hello world'));
 app.use('/api/auth', authRoutes);
 app.use('/api/posts', postRoutes);
 app.use('/api/subs', subRoutes);
+app.use('/api/comments', commentRoutes);
 
 app.listen(process.env.PORT, async () => {
-  console.log(`Serve is is running at port:${process.env.PORT}`);
+  console.log(`Serve is running at port:${process.env.PORT}`);
 
   try {
     await createConnection();
