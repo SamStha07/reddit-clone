@@ -5,31 +5,25 @@ import { useRouter } from 'next/router';
 import React, { FormEvent, useState } from 'react';
 import InputGroup from '../components/InputGroup';
 
-const Register = () => {
-  const [email, setEmail] = useState('');
+const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [agreement, setAgreement] = useState(false);
   const [errors, setErrors] = useState<any>({});
+
+  // console.log(errors);
 
   const router = useRouter();
 
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
-    if (!agreement) {
-      setErrors({ ...errors, agreement: 'You must agree to T&Cs' });
-      return;
-    }
 
     try {
-      await axios.post('/auth/register', {
-        email,
+      await axios.post('/auth/login', {
         username,
         password,
       });
-      router.push('/login');
+      router.push('/');
     } catch (err: any) {
-      // console.log(err.response.data);
       setErrors(err.response.data);
     }
   };
@@ -37,7 +31,7 @@ const Register = () => {
   return (
     <div className='flex'>
       <Head>
-        <title>Register</title>
+        <title>Login</title>
       </Head>
 
       <div
@@ -46,34 +40,12 @@ const Register = () => {
       ></div>
       <div className='flex flex-col content-center justify-center pl-6'>
         <div className='w-70'>
-          <h1 className='mb-2 text-lg font-medium'>Sign up</h1>
+          <h1 className='mb-2 text-lg font-medium'>Login</h1>
           <p className='mb-10 text-xs'>
             By continuing, you agree to our User Agreement and Privacy Policy.
           </p>
+
           <form onSubmit={handleSubmit}>
-            <div className='mb-6'>
-              <input
-                type='checkbox'
-                className='mr-1 cursor-pointer'
-                id='agreement'
-                checked={agreement}
-                onChange={(e) => setAgreement(e.target.checked)}
-              />
-              <label htmlFor='agreement' className='text-xs cursor-pointer'>
-                I agree to get emails about coll stuff on reddit.
-              </label>
-              <small className='block font-medium text-red-600'>
-                {errors.agreement}
-              </small>
-            </div>
-            <InputGroup
-              className='mb-2'
-              value={email}
-              placeholder='Email'
-              error={errors.email}
-              setValue={setEmail}
-              type='email'
-            />
             <InputGroup
               className='mb-2'
               value={username}
@@ -95,13 +67,13 @@ const Register = () => {
               type='submit'
               className='w-full py-2 mb-4 text-xs font-bold text-white uppercase bg-blue-500 border border-blue-500 rounded'
             >
-              Sign up
+              Login
             </button>
           </form>
           <small>
-            Already a redditor?{' '}
-            <Link href='/login'>
-              <a className='ml-1 text-blue-500 uppercase'>Login</a>
+            New to reddit?{' '}
+            <Link href='/register'>
+              <a className='ml-1 text-blue-500 uppercase'>Sign up</a>
             </Link>
           </small>
         </div>
@@ -110,4 +82,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default Login;

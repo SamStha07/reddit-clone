@@ -9,6 +9,7 @@ import commentRoutes from './routes/comments';
 import trim from './middleware/trim';
 import env from 'dotenv';
 import cookieParser from 'cookie-parser';
+import cors from 'cors';
 
 const app = express();
 
@@ -18,6 +19,13 @@ app.use(express.json());
 app.use(morgan('dev'));
 app.use(trim);
 app.use(cookieParser());
+app.use(
+  cors({
+    credentials: true,
+    origin: process.env.ORIGIN,
+    optionsSuccessStatus: 200,
+  })
+);
 
 app.get('/', (_, res) => res.send('Hello world'));
 app.use('/api/auth', authRoutes);

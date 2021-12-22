@@ -19,7 +19,8 @@ export default class User extends Entity {
   }
 
   @Index()
-  @IsEmail()
+  @IsEmail(undefined, { message: 'Must be a valid email address' })
+  @Length(1, 255, { message: 'Email is empty' })
   @Column({ unique: true })
   email: string;
 
@@ -30,7 +31,7 @@ export default class User extends Entity {
 
   @Exclude()
   @Column()
-  @Length(8, 255)
+  @Length(8, 255, { message: 'Must be at least 8 characters long' })
   password: string;
 
   @OneToMany(() => Post, (post) => post.user)
