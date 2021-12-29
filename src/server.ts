@@ -6,6 +6,7 @@ import authRoutes from './routes/auth';
 import postRoutes from './routes/posts';
 import subRoutes from './routes/subs';
 import commentRoutes from './routes/comments';
+import voteRoutes from './routes/votes';
 import trim from './middleware/trim';
 import env from 'dotenv';
 import cookieParser from 'cookie-parser';
@@ -32,6 +33,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/posts', postRoutes);
 app.use('/api/subs', subRoutes);
 app.use('/api/comments', commentRoutes);
+app.use('/api/vote', voteRoutes);
 
 app.listen(process.env.PORT, async () => {
   console.log(`Serve is running at port:${process.env.PORT}`);
