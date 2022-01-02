@@ -47,7 +47,7 @@ export default class Post extends Entity {
   @JoinColumn({ name: 'subName', referencedColumnName: 'name' })
   sub: Sub;
 
-  // @Exclude()
+  @Exclude()
   @OneToMany(() => Vote, (vote) => vote.post)
   votes: Vote[];
 
@@ -55,6 +55,7 @@ export default class Post extends Entity {
   @JoinColumn({ name: 'username', referencedColumnName: 'username' })
   user: User;
 
+  @Exclude()
   @OneToMany(() => Comment, (comment) => comment.post)
   comments: Comment[];
 

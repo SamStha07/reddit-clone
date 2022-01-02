@@ -2,8 +2,9 @@ import axios from 'axios';
 import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import React, { FormEvent, useState } from 'react';
+import React, { FormEvent, useEffect, useState } from 'react';
 import InputGroup from '../components/InputGroup';
+import { useAuthState } from '../context/auth';
 
 const Register = () => {
   const [email, setEmail] = useState('');
@@ -12,7 +13,21 @@ const Register = () => {
   const [agreement, setAgreement] = useState(false);
   const [errors, setErrors] = useState<any>({});
 
+  const { authenticated } = useAuthState();
+
   const router = useRouter();
+  // if (authenticated) {
+  //   return {
+  //     redirect: {
+  //       destination: '/',
+  //       permanent: true,
+  //     },
+  //   };
+  // }
+  // NOTE: OR
+  useEffect(() => {
+    if (authenticated) void router.push('/');
+  }, [authenticated, router]);
 
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();

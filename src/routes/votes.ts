@@ -4,6 +4,7 @@ import Post from '../entities/Post';
 import User from '../entities/User';
 import Vote from '../entities/Vote';
 import auth from '../middleware/auth';
+import user from '../middleware/user';
 
 const vote = async (req: Request, res: Response) => {
   const { post_identifier, post_slug, comment_identifier, vote_value } =
@@ -64,6 +65,6 @@ const vote = async (req: Request, res: Response) => {
 };
 
 const router = Router();
-router.post('/', auth, vote);
+router.post('/', user, auth, vote);
 
 export default router;
